@@ -69,14 +69,25 @@ document.querySelectorAll('.js-add-to-cart')
             }
         });
         if(matchingItem) {
-            matchingItem.Quantity += 1;
+            matchingItem.quantity += 1;
         } else {
             cart.push({
                 productId: productId,
-                Quantity: 1
+                quantity: 1
             });
         }
-        
+
+        let cartquantity = 0;
+
+        cart.forEach((item) => {
+            cartquantity += Number(item.quantity || 0);
+        });
+
+        console.log(cartquantity);
+
+
         console.log(cart)
+
+        document.querySelector('.js-cart-qty').innerHTML = cartquantity
     });
  });
