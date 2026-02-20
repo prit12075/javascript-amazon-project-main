@@ -1,5 +1,6 @@
-import {cart} from '../data/cart.js';
+import {cart, removefromCart} from '../data/cart.js';
 import {products} from '../data/products.js';
+import {formatPrice} from './utils/money.js';
 
 let checkoutHTML =  '';
 
@@ -30,7 +31,7 @@ cart.forEach((cartItem) => {
                     ${mathchingproduct.name}
                 </div>
                 <div class="product-price">
-                    $${(mathchingproduct.priceCents / 100).toFixed(2)}
+                    ${formatPrice(mathchingproduct.priceCents)}
                 </div>
                 <div class="product-quantity">
                 <span>
@@ -39,7 +40,7 @@ cart.forEach((cartItem) => {
                 <span class="update-quantity-link link-primary">
                 Update
                 </span>
-                <span class="delete-quantity-link link-primary">
+                <span class="delete-quantity-link link-primary js-delete-qty" data-product-id="${mathchingproduct.id}">
                 Delete
                 </span>
                 </div>
@@ -52,7 +53,7 @@ cart.forEach((cartItem) => {
 
             <div class="delivery-option">
             <input type="radio" class="delivery-option-input"
-            name="delivery-option-2">
+            name="${productID}">
             <div>
             <div class="delivery-option-date">
                 Tuesday, June 21
@@ -64,7 +65,7 @@ cart.forEach((cartItem) => {
         </div>
             <div class="delivery-option">
             <input type="radio" checked class="delivery-option-input"
-            name="delivery-option-2">
+            name="${productID}">
             <div>
             <div class="delivery-option-date">
                 Wednesday, June 15
@@ -76,7 +77,7 @@ cart.forEach((cartItem) => {
         </div>
         <div class="delivery-option">
             <input type="radio" class="delivery-option-input"
-            name="delivery-option-2">
+            name="${productID}">
             <div>
             <div class="delivery-option-date">
                 Monday, June 13
@@ -91,3 +92,10 @@ cart.forEach((cartItem) => {
     </div>`;
 });
 document.querySelector('.js-order-summary').innerHTML = checkoutHTML;    
+
+document.querySelectorAll('.js-delete-qty').forEach((link) => {
+    link.addEventListener('click', () => {
+        const id = link.dataset.productId;
+        removefromCart(id);
+    });
+});
