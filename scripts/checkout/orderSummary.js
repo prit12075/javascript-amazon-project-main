@@ -76,6 +76,7 @@ export function renderOrderSummary() {
                 container.remove();
             }
             console.log(container);
+            renderPaymentSummary();
         });
     });
 
