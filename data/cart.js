@@ -12,6 +12,16 @@ if (!cart) {
     }] ;
     }
 
+export function updateDeliveryOption(productId, deliveryOption) {
+    let matchingItem = '';
+    cart.forEach((item) => {
+        if (productId === item.productId) {
+            matchingItem = item;
+        }
+    })
+    matchingItem.deliveryOption = deliveryOption;
+    savetoStorage();
+}
 
 
 
